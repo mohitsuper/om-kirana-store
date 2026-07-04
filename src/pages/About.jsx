@@ -1,0 +1,16 @@
+import React from 'react';
+import AboutHero from '../components/AboutHero';
+import WhoWeAre from '../components/WhoWeAre';
+import MissionVision from '../components/MissionVision';
+import Gallery from '../components/Gallery';
+
+export default function About() {
+  return (
+    <div>
+        <AboutHero/>
+        <WhoWeAre/>
+        <MissionVision/>
+        <Gallery/>
+    </div>
+  );
+}
