@@ -1,4 +1,5 @@
 function AboutHero() {
+  
   const features = [
     "Best Wholesale Prices",
     "Bulk Availability",
