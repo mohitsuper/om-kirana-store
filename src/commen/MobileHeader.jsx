@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export default function MobileHeader() {
+export default function MobileHeader({isOpen, setIsOpen}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
@@ -26,7 +26,10 @@ export default function MobileHeader() {
             alt=""
           />
         </NavLink>
-         <button className="w-fit text-sm py-2 px-3 text-nowrap bg-secondary text-white  rounded-full font-semibold">
+         <button
+          onClick={() => setIsOpen(true)}
+          className="w-fit text-sm py-2 px-3 text-nowrap bg-secondary text-white  rounded-full font-semibold"
+        >
               Get in Touch
         </button>
         <button

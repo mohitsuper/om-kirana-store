@@ -32,7 +32,7 @@ function Header() {
   return (
     <div>
       <ContactPopup isOpen={isOpen} setIsOpen={setIsOpen} />
-      {isMobile ? <MobileHeader />:
+      {isMobile ? <MobileHeader isOpen={isOpen} setIsOpen={setIsOpen}/>:
       <header className="wow animate__animated animate__fadeInDown sticky top-0 z-999 hidden md:block bg-white shadow-md !mb-0">
         <div className="max-w-7xl mx-auto px-5">
 
