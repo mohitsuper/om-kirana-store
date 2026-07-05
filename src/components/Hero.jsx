@@ -11,7 +11,7 @@ function HeroSection() {
 
                     <div>
 
-                        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-secondary font-semibold text-sm mb-6">
+                        <span className="wow animate__animated animate__fadeInLeft  inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-secondary font-semibold text-sm mb-6">
 
                             <i className="fa-solid fa-store"></i>
 
@@ -19,7 +19,7 @@ function HeroSection() {
 
                         </span>
 
-                        <h1 className="text-2xl xl:text-4xl font-extrabold leading-tight text-primary-dark">
+                        <h1 className="wow animate__animated animate__fadeInDown text-2xl xl:text-4xl font-extrabold leading-tight text-primary-dark">
 
                             Trusted Wholesale <br />
 
@@ -31,13 +31,13 @@ function HeroSection() {
 
                         </h1>
 
-                        <h3 className="mt-3 sm:mt-6 text-lg sm:text-xl  font-bold text-dark">
+                        <h3 className="wow animate__animated animate__fadeInUp mt-3 sm:mt-6 text-lg sm:text-xl  font-bold text-dark">
 
                             Bulk Products. Best Prices. On-Time Delivery.
 
                         </h3>
 
-                        <p className="mt-3 sm:mt-6 text-sm text-gray-600 sm:text-lg leading-7 sm:leading-8 max-w-xl">
+                        <p className="wow animate__animated animate__fadeInUp mt-3 sm:mt-6 text-sm text-gray-600 sm:text-lg leading-7 sm:leading-8 max-w-xl">
 
                             We supply high-quality grocery products in bulk to
                             retailers, hotels, restaurants, supermarkets and
@@ -47,7 +47,7 @@ function HeroSection() {
 
                         {/* Buttons */}
 
-                        <div className="flex flex-wrap gap-4 mt-3 sm:mt-10">
+                        <div className="wow animate__animated animate__fadeInUp flex flex-wrap gap-4 mt-3 sm:mt-10">
 
                             <Link
                                 to="/products"
@@ -88,7 +88,7 @@ function HeroSection() {
                 </div>
                 {/* Features */}
                 {/* <div className="lg:col-span-4">< */}
-                <div className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="wow animate__animated animate__fadeInUp lg:col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-5">
 
                     {/* Card 1 */}
 

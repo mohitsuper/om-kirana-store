@@ -34,9 +34,7 @@ const ProductsHero = () => {
             </p>
 
             {/* Button */}
-            <button className="mt-5 md:mt-6 bg-orange-500 hover:bg-orange-600 transition text-white px-6 py-2.5 md:px-8 md:py-3 rounded-full font-semibold shadow-lg">
-              Explore Products
-            </button>
+            
           </div>
 
           {/* Right Image */}

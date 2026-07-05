@@ -6,7 +6,7 @@ import products from "../data/product";
 
 const FeaturedProducts = () => {
   return (
-    <section className="py-4 sm:py-16">
+    <section className="py-4 sm:py-16 wow animate__animated animate__fadeInUp">
       <div className="mx-auto max-w-7xl px-4">
 
         {/* Heading */}

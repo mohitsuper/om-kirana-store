@@ -6,7 +6,7 @@ import { categories } from "../data/categories";
 
 const ShopCategories = () => {
     return (
-        <section className="py-4 bg-[#fafafa]">
+        <section className="py-4 bg-[#fafafa] wow animate__animated animate__fadeInUp">
             <div className="max-w-7xl mx-auto px-4">
 
                 {/* Heading */}

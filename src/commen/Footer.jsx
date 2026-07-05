@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-[#071B3B] text-white">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-6 sm:py-12">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-10">
 
           {/* Logo */}
           <div>
@@ -13,7 +13,7 @@ const Footer = () => {
               <img
                 src="/images/logo/logo-white.svg"
                 alt="OM Kirana Store"
-                className="h-25 bg-white w-40 mb-4"
+                className="h-20 sm:h-25 bg-white w-40 mb-4"
               />
             </Link>
 
@@ -23,7 +23,7 @@ const Footer = () => {
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-3 mt-6">
+            <div className="flex items-center gap-3 mt-3 sm:mt-6">
 
               <a
                 target="_blank"
@@ -55,38 +55,38 @@ const Footer = () => {
           {/* Quick Links */}
 
           <div>
-            <h3 className="text-xl font-semibold mb-5">
+            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-5">
               Quick Links
             </h3>
 
             <ul className="space-y-3 text-gray-300">
 
               <li>
-                <Link to="/" className="hover:text-orange-500 transition">
+                <Link to="/" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Home
                 </Link>
               </li>
 
               <li>
-                <Link to="/about" className="hover:text-orange-500 transition">
+                <Link to="/about" className="sm:text-md text-sm hover:text-orange-500 transition">
                   About Us
                 </Link>
               </li>
 
               <li>
-                <Link to="/faq" className="hover:text-orange-500 transition">
+                <Link to="/faq" className="sm:text-md text-sm hover:text-orange-500 transition">
                   FAQ
                 </Link>
               </li>
 
               <li>
-                <Link to="/products" className="hover:text-orange-500 transition">
+                <Link to="/products" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Products
                 </Link>
               </li>
 
               <li>
-                <Link to="/contact" className="hover:text-orange-500 transition">
+                <Link to="/contact" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Contact Us
                 </Link>
               </li>
@@ -99,39 +99,39 @@ const Footer = () => {
           {/* Categories */}
 
           <div>
-            <h3 className="text-xl font-semibold mb-5">
+            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-5">
               Categories
             </h3>
 
             <ul className="space-y-3 text-gray-300">
 
               <li>
-                <Link to="/products" className="hover:text-orange-500 transition">
+                <Link to="/products" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Dry Fruits
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="hover:text-orange-500 transition">
+                <Link to="/products" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Garam Masala
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="hover:text-orange-500 transition">
+                <Link to="/products" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Namak
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="hover:text-orange-500 transition">
+                <Link to="/products" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Edible Oil
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="hover:text-orange-500 transition">
+                <Link to="/products" className="sm:text-md text-sm hover:text-orange-500 transition">
                   Atta & Flour
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="hover:text-orange-500 transition">
+                <Link to="/products" className="sm:text-md text-sm hover:text-orange-500 transition">
                   View All
                 </Link>
               </li>
@@ -145,13 +145,13 @@ const Footer = () => {
 
           <div>
 
-            <h3 className="text-xl font-semibold mb-5">
+            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-5">
               Contact Us
             </h3>
 
             <ul className="space-y-5 text-gray-300">
 
-              <li className="flex gap-3">
+              <li className="flex gap-3 text-sm sm:text-md">
 
                 <i className="fa-solid fa-phone text-orange-500 mt-1"></i>
 
@@ -159,7 +159,7 @@ const Footer = () => {
 
               </li>
 
-              <li className="flex gap-3">
+              <li className="flex gap-3 text-sm sm:text-md">
 
                 <i className="fa-solid fa-envelope text-orange-500 mt-1"></i>
 
@@ -167,7 +167,7 @@ const Footer = () => {
 
               </li>
 
-              <li className="flex gap-3">
+              <li className="flex gap-3 text-sm sm:text-md">
 
                 <i className="fa-solid fa-location-dot text-orange-500 mt-1"></i>
 
@@ -193,11 +193,11 @@ const Footer = () => {
 
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
 
-          <p>
+          <p className="text-center md:text-left text-sm text-gray-400">
             © {new Date().getFullYear()} OM Kirana Store. All Rights Reserved.
           </p>
 
-          <p className="mt-2 md:mt-0">
+          <p className="text-center md:text-left text-sm text-gray-400">
             Designed with{" "}
             <i className="fa-solid fa-heart text-red-500"></i>{" "}
             for our customers.

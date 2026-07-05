@@ -33,14 +33,14 @@ function Header() {
     <div>
       <ContactPopup isOpen={isOpen} setIsOpen={setIsOpen} />
       {isMobile ? <MobileHeader />:
-      <header className="sticky top-0 z-999 hidden md:block bg-white shadow-md !mb-0">
+      <header className="wow animate__animated animate__fadeInDown sticky top-0 z-999 hidden md:block bg-white shadow-md !mb-0">
         <div className="max-w-7xl mx-auto px-5">
 
           <div className="h-24 flex items-center justify-between">
 
             {/* Logo */}
 
-            <a href="/" className="flex items-center flex-shrink-0">
+            <a href="/" className="wow animate__animated animate__fadeInLeft flex items-center flex-shrink-0">
               <img
                 src="/images/logo/logo-lands.svg"
                 alt="OM Kirana Store"

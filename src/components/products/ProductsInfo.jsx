@@ -1,6 +1,6 @@
 import React from "react";
 // import productImage from "../assets/products/fortune-oil.png"; // Replace later
-
+import { useState } from "react";
 const ProductInformation = ({ product }) => {
   const handleBuyNow = (product) => {
     const message = `Hello,
@@ -17,21 +17,20 @@ Please share payment details.`;
 
     window.open(whatsappUrl, "_blank");
   };
-
-
+  const [counter,setCounter] = useState(1);
   return (
-    <section className="py-20 bg-white">
+    <section className="py-6 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-5">
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-16">
 
           {/* Product Image */}
           <div>
-            <div className="bg-gray-50 rounded-3xl p-10 shadow-sm border">
+            <div className="bg-gray-50 rounded-3xl sm:p-10 shadow-sm border overflow-hidden hover:shadow-lg transition duration-300">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-[450px] object-contain hover:scale-105 duration-300"
+                className="w-full md:h-[450px] object-contain hover:scale-105 duration-300"
               />
             </div>
           </div>
@@ -40,55 +39,43 @@ Please share payment details.`;
           <div>
 
             <span className="inline-block bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-semibold">
-              Grocery Product
+              {product.category}
             </span>
 
-            <h2 className="text-4xl font-bold text-slate-800 mt-4">
-              Fortune Refined Sunflower Oil
+            <h2 className=" mt-3 sm:mt-6 text-lg sm:text-xl font-bold text-dark">
+              {product.name}
             </h2>
 
-            <div className="flex items-center gap-2 mt-3">
-              <div className="text-yellow-400">
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star-half-stroke"></i>
-              </div>
+           
 
-              <span className="text-gray-500">(4.8 Reviews)</span>
-            </div>
-
-            <h3 className="text-4xl font-bold text-orange-500 mt-6">
+            <h3 className="text-4xl font-bold text-orange-500 mt-3 sm:mt-6">
               {product.price.toLocaleString()} &#8377;
             </h3>
 
-            <p className="text-gray-600 leading-8 mt-6">
-              Premium quality refined sunflower oil suitable for homes,
-              restaurants, hotels and catering businesses. Healthy, light
-              and perfect for daily cooking.
+            <p className="mt-3 sm:mt-6 text-sm text-gray-600 sm:text-lg leading-7 sm:leading-8 max-w-xl">
+              {product.description}
             </p>
 
-            <div className="border-t border-b py-6 my-8 space-y-4">
+            <div className="border-t border-b py-4 sm:py-6 my-4 sm:my-8 space-y-4">
 
               <div className="flex justify-between">
                 <span className="font-semibold">Brand</span>
-                <span>Fortune</span>
+                <span className="font-medium text-sm">{product.brand || "Not specified"}</span>
               </div>
 
               <div className="flex justify-between">
                 <span className="font-semibold">Category</span>
-                <span>Cooking Oil</span>
+                <span className="font-medium text-sm">{product.category || "Not specified"}</span>
               </div>
 
               <div className="flex justify-between">
                 <span className="font-semibold">Packaging</span>
-                <span>15 Litre Jar</span>
+                <span className="font-medium text-sm">{product.packaging||"Not specified"}</span>
               </div>
 
               <div className="flex justify-between">
                 <span className="font-semibold">Minimum Order</span>
-                <span>5 Pieces</span>
+                <span className="font-medium text-sm">{product.minOrder || "Not specified"}</span>
               </div>
 
               <div className="flex justify-between">
@@ -107,15 +94,15 @@ Please share payment details.`;
 
               <div className="flex items-center border rounded-lg">
 
-                <button className="px-4 py-3">
+                <button  onClick={() => setCounter(counter > 1 ? counter - 1 : 1)}  className="px-4 py-3">
                   -
                 </button>
 
                 <span className="px-5">
-                  1
+                  {counter}
                 </span>
 
-                <button className="px-4 py-3">
+                <button onClick={() => setCounter(counter < 20 ? counter + 1 : 20)} className="px-4 py-3">
                   +
                 </button>
 

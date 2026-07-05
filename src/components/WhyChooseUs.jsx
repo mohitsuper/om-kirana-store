@@ -53,7 +53,7 @@ function WhyChooseUs() {
 
           {/* Left */}
 
-          <div className="lg:col-span-6 bg-white rounded-3xl shadow-md p-4 sm:p-8">
+          <div className="wow animate__animated animate__fadeInLeft lg:col-span-6 bg-white rounded-3xl shadow-md p-4 sm:p-8">
 
             <div className="flex items-center gap-3 mb-8">
 
@@ -94,7 +94,7 @@ function WhyChooseUs() {
 
           {/* Right */}
 
-          <div className="lg:col-span-6 bg-primary-dark rounded-3xl shadow-xl overflow-hidden">
+          <div className="wow animate__animated animate__fadeInRight lg:col-span-6 bg-primary-dark rounded-3xl shadow-xl overflow-hidden">
 
             <div className="grid grid-cols-2 md:grid-cols-4">
 

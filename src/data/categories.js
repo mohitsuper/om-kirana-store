@@ -1,5 +1,10 @@
 export const categories = [
   {
+    id: 0,
+    name: "All",
+    image: "/images/categories/all.jpg",
+  },
+  {
     id: 1,
     name: "Atta",
     image: "/images/categories/atta.jpg",
@@ -16,7 +21,7 @@ export const categories = [
   },
   {
     id: 4,
-    name: "Namak",
+    name: "Salt",
     image: "/images/categories/namak.jpg",
   },
   {
