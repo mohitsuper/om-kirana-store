@@ -10,7 +10,7 @@ import HeroSection from './components/Hero';
 import ShopCategories from './components/ShopCategories';
 import FeaturesProducts from './components/FeaturesProducts';
 import WhyChooseUs from './components/WhyChooseUs';
-import Footer from './Commen/Footer';
+import Footer from './commen/Footer';
 import ProductInfo from './pages/ProductInfo';
 import ReturnPolicy from './pages/ReturnPolicy';
 import { ContactUs } from './pages/ContactUs';

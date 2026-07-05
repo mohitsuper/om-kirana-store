@@ -1,14 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import WOW from "wowjs";
 import "animate.css";
 
 const Error404 = () => {
-  useEffect(() => {
-    new WOW.WOW({
-      live: false,
-    }).init();
-  }, []);
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 flex items-center justify-center px-5 overflow-hidden">
