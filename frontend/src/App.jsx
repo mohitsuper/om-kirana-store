@@ -19,6 +19,7 @@ import AdminCategories from './pages/Admin/Categories';
 import AdminOrders from './pages/Admin/Orders';
 import AdminCustomers from './pages/Admin/Customers';
 import AdminSettings from './pages/Admin/Settings';
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div>
+       <Toaster position="top-right" />
       {!isAdminRoute && <TopBar />}
       {!isAdminRoute && <Headers />}
       <main>
@@ -43,6 +45,7 @@ function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="products/*" element={<AdminProducts />} />
             <Route path="categories/*" element={<AdminCategories />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
           <Route path="*" element={<Error404 />} />
         </Routes>

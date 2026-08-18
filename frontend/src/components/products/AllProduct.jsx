@@ -1,21 +1,46 @@
-import React, { useState } from "react";
-import products from "../../data/product";
+import React, { useEffect, useState } from "react";
 import ProductCard from "../ProductCard";
-import { categories } from "../../data/categories";
+import { GetProducts, GetCategories } from "../../axois/axois";
 
 
 const AllProducts = () => {
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState("");
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  const [total, setTotal] = useState(0);
+  const totalPages = Math.max(1, Math.ceil(total / limit));
 
-  const filteredProducts = products.filter((item) => {
-    
+  const fetchPage = async (p = 1) => {
+    try {
+      const res = await GetProducts({ page: p, limit });
+      setProducts(res.data || []);
+      setTotal(res.total || 0);
+    } catch (err) {
+      console.error('Failed to fetch products', err);
+    }
+  };
 
-    const matchSearch = item.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+  useEffect(() => {
+    fetchPage(page);
+    const fetch = async () => {
+      try {
+        const c = await GetCategories();
+        setCategories(c.data || []);
+      } catch (err) {
+        console.error('Failed to fetch categories', err);
+      }
+    };
+    fetch();
+  }, [page]);
 
-    return  matchSearch;
+  const filteredProducts = (products || []).filter((item) => {
+    const name = (item.productName || item.name || '').toString();
+    const matchSearch = name.toLowerCase().includes(search.toLowerCase());
+    const matchCategory = category === 'All' || !category || (item.category === category) || (item.categoryName === category);
+    return matchSearch && matchCategory;
   });
 
   return (
@@ -53,12 +78,29 @@ const AllProducts = () => {
         {/* Grid */}
 
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-8">
-          {filteredProducts.map((item) => (
+          {filteredProducts.map((product) => (
             <ProductCard
-              item={item}
+              key={product._id || product.id}
+              item={{
+                id: product._id || product.id,
+                name: product.productName || product.name,
+                image: product.imageUrl?.url || product.image,
+                price: product.price,
+                minOrder: product.minimumOrder || product.minOrder,
+                badge: product.badge || ''
+              }}
             />
           ))}
 
+        </div>
+
+        {/* Pagination */}
+        <div className="mt-8 flex items-center justify-center gap-2">
+          <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1 rounded border">Previous</button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <button key={p} onClick={() => setPage(p)} className={`px-3 py-1 rounded ${p === page ? 'bg-[#0f2245] text-white' : 'border'}`}>{p}</button>
+          ))}
+          <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1 rounded border">Next</button>
         </div>
 
       </div>

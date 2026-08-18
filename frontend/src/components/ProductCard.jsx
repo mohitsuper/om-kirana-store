@@ -4,7 +4,7 @@ const ProductCard = ({ item }) => {
     const navigate = useNavigate();
 
   return (
-    <div className="relative rounded-xl border border-gray-200 bg-white p-3 shadow-sm hover:shadow-lg transition-all">
+    <div className="relative rounded-xl border border-gray-200 bg-white p-3 shadow-sm hover:shadow-lg transition-all wow animate__animated animate__fadeInUp">
 
       {/* Badge */}
       <span className="absolute z-99 left-2 top-2 rounded-full bg-orange-500 px-2 py-1 text-[10px] font-semibold text-white">

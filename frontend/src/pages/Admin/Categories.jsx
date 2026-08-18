@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { GetCategories, AddCategory, UpdateCategory, DeleteCategory } from '../../axois/axois';
 
 const defaultCategories = [
   { id: 1, name: 'Oil', description: 'Cooking and edible oils', slug: 'oil' },
@@ -9,7 +10,7 @@ const defaultCategories = [
 ];
 
 const emptyForm = {
-  name: '',
+  categoryName: '',
   description: '',
   slug: '',
 };
@@ -29,19 +30,22 @@ function CategoryList({ categories, onView, onEdit, onDelete }) {
     <div className="space-y-4">
       <div className="grid gap-4 xl:grid-cols-2">
         {paginatedCategories.map((category) => (
-          <div key={category.id} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+          <div key={category._id || category.id} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex items-start justify-between gap-3">
-              <div>
-                <h3 className="text-lg font-semibold text-slate-800">{category.name}</h3>
-                <p className="mt-1 text-sm text-slate-500">{category.description}</p>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.3em] text-orange-500">/{category.slug}</p>
+              <div className="flex items-center gap-4">
+                {category.imageUrl?.url && <img src={category.imageUrl.url} alt={category.categoryName || category.name} className="h-16 w-16 rounded object-cover" />}
+                <div>
+                  <h3 className="text-lg font-semibold text-slate-800">{category.categoryName || category.name}</h3>
+                  <p className="mt-1 text-sm text-slate-500">{category.description}</p>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.3em] text-orange-500">/{category.slug}</p>
+                </div>
               </div>
               <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-600">Active</span>
             </div>
             <div className="mt-4 flex justify-end gap-2">
-              <button onClick={() => onView(category.id)} className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50">View</button>
-              <button onClick={() => onEdit(category.id)} className="rounded-lg bg-[#0f2245] px-3 py-2 text-sm text-white hover:bg-[#16315f]">Edit</button>
-              <button onClick={() => onDelete(category.id)} className="rounded-lg border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50">Delete</button>
+              <button onClick={() => onView(category._id)} className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50">View</button>
+              <button onClick={() => onEdit(category._id)} className="rounded-lg bg-[#0f2245] px-3 py-2 text-sm text-white hover:bg-[#16315f]">Edit</button>
+              <button onClick={() => onDelete(category._id)} className="rounded-lg border border-red-200 px-3 py-2 text-sm text-red-600 hover:bg-red-50">Delete</button>
             </div>
           </div>
         ))}
@@ -68,7 +72,7 @@ function CategoryList({ categories, onView, onEdit, onDelete }) {
 function CategoryView({ categories }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const category = categories.find((item) => item.id === Number(id));
+  const category = categories.find((item) => item._id === id);
 
   if (!category) {
     return <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">Category not found.</div>;
@@ -85,9 +89,12 @@ function CategoryView({ categories }) {
       </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-[1fr_1fr]">
-        <div className="rounded-2xl bg-slate-50 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Slug</p>
-          <p className="mt-2 text-lg font-semibold text-slate-800">/{category.slug}</p>
+        <div className="rounded-2xl bg-slate-50 p-5 flex items-center gap-4">
+          {category.imageUrl?.url && <img src={category.imageUrl.url} alt={category.categoryName || category.name} className="h-28 w-28 object-cover rounded" />}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Slug</p>
+            <p className="mt-2 text-lg font-semibold text-slate-800">/{category.slug}</p>
+          </div>
         </div>
         <div className="rounded-2xl bg-slate-50 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Description</p>
@@ -102,13 +109,15 @@ function CategoryForm({ categories, onSave, onCancel }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [form, setForm] = useState(emptyForm);
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState('');
   const isEdit = Boolean(id);
-
   useEffect(() => {
     if (isEdit) {
-      const existing = categories.find((item) => item.id === Number(id));
+      const existing = categories.find((item) => item._id === id);
       if (existing) {
         setForm({ ...existing });
+        setPreview(existing.imageUrl?.url || '');
       } else {
         navigate('/admin/categories');
       }
@@ -122,14 +131,58 @@ function CategoryForm({ categories, onSave, onCancel }) {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleFile = (e) => {
+    const f = e.target.files && e.target.files[0];
+    setFile(f);
+    if (f) setPreview(URL.createObjectURL(f));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const payload = {
-      ...form,
-      id: isEdit ? Number(form.id) : Date.now(),
-      slug: form.slug || form.name.toLowerCase().replace(/\s+/g, '-'),
-    };
-    onSave(payload);
+    if(isEdit){
+      const existing = categories.find((item) => item._id === id);
+      if (!existing) {
+        alert('Category not found');
+        return;
+      }
+      else{
+        // build payload
+        if (file) {
+          const fd = new FormData();
+          fd.append('categoryName', form.categoryName);
+          fd.append('slug', form.slug);
+          fd.append('description', form.description);
+          fd.append('image', file);
+          UpdateCategory(id, fd).then((res) => {
+            onSave && onSave(res.data);
+            navigate('/admin/categories');
+          }).catch((err) => { console.error(err); alert('Failed to update category'); });
+        } else {
+          UpdateCategory(id, form).then((res) => {
+            onSave && onSave(res.data);
+            navigate('/admin/categories');
+          }).catch((err) => { console.error(err); alert('Failed to update category'); });
+        }
+      }
+    } 
+    else{
+      if (file) {
+        const fd = new FormData();
+        fd.append('categoryName', form.categoryName);
+        fd.append('slug', form.slug);
+        fd.append('description', form.description);
+        fd.append('image', file);
+        AddCategory(fd).then((res) => {
+          onSave && onSave(res.data);
+          navigate('/admin/categories');
+        }).catch((err) => { console.error(err); alert('Failed to create category'); });
+      } else {
+        AddCategory(form).then((res) => {
+          onSave && onSave(res.data);
+          navigate('/admin/categories');
+        }).catch((err) => { console.error(err); alert('Failed to create category'); });
+      }
+    }
   };
 
   return (
@@ -145,7 +198,7 @@ function CategoryForm({ categories, onSave, onCancel }) {
       <form onSubmit={handleSubmit} className="mt-6 grid gap-4 md:grid-cols-2">
         <div className="md:col-span-2">
           <label className="text-sm font-medium text-slate-700">Category Name</label>
-          <input name="name" value={form.name} onChange={handleChange} required className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-orange-400" />
+          <input name="categoryName" value={form.categoryName} onChange={handleChange} required className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-orange-400" />
         </div>
         <div className="md:col-span-2">
           <label className="text-sm font-medium text-slate-700">Slug</label>
@@ -154,6 +207,13 @@ function CategoryForm({ categories, onSave, onCancel }) {
         <div className="md:col-span-2">
           <label className="text-sm font-medium text-slate-700">Description</label>
           <textarea name="description" value={form.description} onChange={handleChange} rows="4" className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-orange-400" />
+        </div>
+        <div className="md:col-span-2">
+          <label className="text-sm font-medium text-slate-700">Image</label>
+          <div className="mt-2 flex items-center gap-4">
+            {preview && <img src={preview} alt="preview" className="h-20 w-20 object-cover rounded" />}
+            <input type="file" accept="image/*" onChange={handleFile} />
+          </div>
         </div>
         <div className="md:col-span-2 flex justify-end gap-3">
           <button type="button" onClick={onCancel} className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">Cancel</button>
@@ -165,24 +225,65 @@ function CategoryForm({ categories, onSave, onCancel }) {
 }
 
 export default function AdminCategories() {
-  const [categories, setCategories] = useState(defaultCategories);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
   const navigate = useNavigate();
 
-  const handleSave = (category) => {
-    setCategories((prev) => {
-      const exists = prev.some((item) => item.id === category.id);
-      if (exists) {
-        return prev.map((item) => (item.id === category.id ? category : item));
+  useEffect(() => {
+    const fetch = async () => {
+      setLoading(true);
+      try {
+        const res = await GetCategories();
+        setCategories(res.data || []);
+      } catch (err) {
+        console.error('Failed to load categories', err);
+      } finally {
+        setLoading(false);
       }
-      return [category, ...prev];
-    });
-    navigate('/admin/categories');
+    };
+    fetch();
+  }, []);
+
+  const handleSave = async (category) => {
+    try {
+      if (category.id && Number(category.id)) {
+        // update - backend expects Mongo _id; here we assume id might be string _id
+        const id = category.id;
+        const res = await UpdateCategory(id, {
+          categoryName: category.name,
+          slug: category.slug,
+          description: category.description
+        });
+        setCategories((prev) => prev.map((c) => (c._id === res.data._id ? res.data : c)));
+      } else {
+        const res = await AddCategory({
+          categoryName: category.name,
+          slug: category.slug,
+          description: category.description
+        });
+        setCategories((prev) => [res.data, ...prev]);
+      }
+      navigate('/admin/categories');
+    } catch (err) {
+      console.error('Save category failed', err);
+      alert('Failed to save category');
+    }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const confirmed = window.confirm('Delete this category?');
     if (!confirmed) return;
-    setCategories((prev) => prev.filter((item) => item.id !== id));
+    try {
+      setDeletingId(id);
+      await DeleteCategory(id);
+      setCategories((prev) => prev.filter((c) => c._id !== id && c.id !== id));
+    } catch (err) {
+      console.error('Delete category failed', err);
+      alert('Failed to delete category');
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   return (

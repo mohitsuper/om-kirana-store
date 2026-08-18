@@ -4,6 +4,7 @@ const menuItems = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: 'fa-chart-pie' },
   { label: 'Products', path: '/admin/products', icon: 'fa-box' },
   { label: 'Categories', path: '/admin/categories', icon: 'fa-tags' },
+  { label: 'Settings', path: '/admin/settings', icon: 'fa-gear' },
 
 ];
 

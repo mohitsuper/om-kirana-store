@@ -19,14 +19,14 @@ Please share payment details.`;
   };
   const [counter,setCounter] = useState(1);
   return (
-    <section className="py-6 sm:py-20 bg-white">
+    <section className="py-6 sm:py-20 bg-white wow animate__animated animate__fadeInUp">
       <div className="max-w-7xl mx-auto px-5">
 
         <div className="grid lg:grid-cols-2 gap-4 sm:gap-16">
 
           {/* Product Image */}
           <div>
-            <div className="bg-gray-50 rounded-3xl sm:p-10 shadow-sm border overflow-hidden hover:shadow-lg transition duration-300">
+            <div className="bg-gray-50 rounded-3xl sm:p-10 shadow-sm border overflow-hidden hover:shadow-lg transition duration-300 wow animate__animated animate__zoomIn">
               <img
                 src={product.image}
                 alt={product.name}
@@ -38,11 +38,11 @@ Please share payment details.`;
           {/* Product Information */}
           <div>
 
-            <span className="inline-block bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-semibold">
+            <span className="inline-block bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-semibold wow animate__animated animate__fadeInLeft">
               {product.category}
             </span>
 
-            <h2 className=" mt-3 sm:mt-6 text-lg sm:text-xl font-bold text-dark">
+            <h2 className=" mt-3 sm:mt-6 text-lg sm:text-xl font-bold text-dark wow animate__animated animate__fadeInDown">
               {product.name}
             </h2>
 

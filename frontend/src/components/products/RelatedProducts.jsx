@@ -7,7 +7,7 @@ const RelatedProducts = ({ categoryProducts = [] }) => {
   }
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-50 wow animate__animated animate__fadeInUp">
       <div className="max-w-7xl mx-auto px-5">
 
         {/* Heading */}
@@ -29,10 +29,11 @@ const RelatedProducts = ({ categoryProducts = [] }) => {
         {/* Products */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-7">
 
-          {categoryProducts.map((product) => (
+          {categoryProducts.map((product, idx) => (
             <div
               key={product.id}
-              className="bg-white rounded-2xl shadow-sm border hover:shadow-xl transition-all duration-300 overflow-hidden group"
+              className={`bg-white rounded-2xl shadow-sm border hover:shadow-xl transition-all duration-300 overflow-hidden group wow animate__animated animate__fadeInUp`}
+              data-wow-delay={`${idx * 0.1}s`}
             >
               {/* Badge */}
               <div className="absolute mt-4 ml-4 z-10">

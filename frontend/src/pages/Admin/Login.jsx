@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Adminauth } from '../../axois/axois';
 
 export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,8 +12,11 @@ export default function AdminLogin() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await 
-    navigate('/admin/dashboard');
+    await Adminauth(userInfo)
+      .then((response) => {
+        console.log('Admin authentication successful:', response);
+        navigate('/admin/dashboard');
+      })  
   };
 
   return (

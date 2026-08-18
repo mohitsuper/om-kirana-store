@@ -1,10 +1,11 @@
-const express = require('express');
-const cors = require('cors');
 const dotenv = require('dotenv');
-const { connectDB } = require('./config/db');
-const authRoutes = require('./routes/auth');
-
 dotenv.config();
+const express = require('express');
+const cloudinary = require('./config/cloudinary');
+
+const cors = require('cors');
+const { connectDB } = require('./config/db');
+const router = require('./routes/router');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,7 +17,8 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: 'Om Kirana Store API is running' });
 });
 
-app.use('/api/auth', authRoutes);
+app.use('/api', router);
+// app.use('/api/admin', adminAuthRoutes);
 
 connectDB();
 

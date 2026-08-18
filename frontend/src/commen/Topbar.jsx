@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 function TopBar() {
     return (
-        <div className="hidden lg:block bg-primary-dark text-white text-sm">
+        <div className="hidden lg:block bg-primary-dark text-white text-sm wow animate__animated animate__fadeInDown">
 
             <div className="max-w-7xl mx-auto px-5">
 
@@ -73,7 +75,9 @@ function TopBar() {
                         >
                             <i className="fa-brands fa-youtube"></i>
                         </a>
-
+                        <Link to="/admin" className="underline text-blue-500 hover:text-secondary duration-300">
+                            Admin
+                        </Link>
                     </div>
 
                 </div>
