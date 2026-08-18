@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { GetSettings, UpdateSettings, GetAdmin, UpdateAdmin, ChangeAdminPassword } from '../../axois/axois';
+import SettingsContext from '../../context/SettingsContext';
 
 export default function AdminProfile() {
   const [settings, setSettings] = useState(null);
@@ -9,6 +10,7 @@ export default function AdminProfile() {
   const [admin, setAdmin] = useState(null);
   const [adminForm, setAdminForm] = useState({ email: '' });
   const [passwordForm, setPasswordForm] = useState({ oldPassword: '', newPassword: '', confirm: '' });
+  const { refreshSettings } = useContext(SettingsContext);
 
   useEffect(() => {
     const fetch = async () => {
@@ -83,6 +85,8 @@ export default function AdminProfile() {
 
       const res = await UpdateSettings(formData);
       setSettings(res.data);
+      // refresh global settings so header/footer update across app
+      try { if (refreshSettings) await refreshSettings(); } catch (err) {}
       alert('Settings saved');
     } catch (err) {
       console.error('Save settings failed', err);

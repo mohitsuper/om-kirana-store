@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import SettingsContext from '../context/SettingsContext';
 
 export default function MobileHeader({isOpen, setIsOpen}) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,9 +22,9 @@ export default function MobileHeader({isOpen, setIsOpen}) {
 
         <NavLink to="/">
           <img
-            src="/images/logo/logo-lands.svg"
+            src={useContext(SettingsContext)?.settings?.logo?.url || '/images/logo/logo-lands.svg'}
             className="h-14 w-40"
-            alt=""
+            alt={useContext(SettingsContext)?.settings?.siteName || ''}
           />
         </NavLink>
          <button

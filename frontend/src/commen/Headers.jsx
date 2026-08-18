@@ -1,7 +1,20 @@
 import { NavLink } from "react-router-dom";
 import ContactPopup from "./ContactUsPop";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import MobileHeader from "./MobileHeader";
+import SettingsContext from '../context/SettingsContext';
+
+const Logo = () => {
+  const { settings } = useContext(SettingsContext);
+  const logoUrl = settings?.logo?.url || '/images/logo/logo-lands.svg';
+  const siteName = settings?.siteName || 'OM Kirana Store';
+  return (
+    <a href="/" className="wow animate__animated animate__fadeInLeft flex items-center flex-shrink-0">
+      <img src={logoUrl} alt={siteName} className="h-16 w-auto" />
+      <span className="ml-3 font-semibold text-xl">{siteName}</span>
+    </a>
+  );
+};
 
 
 function Header() {
@@ -39,14 +52,7 @@ function Header() {
           <div className="h-24 flex items-center justify-between">
 
             {/* Logo */}
-
-            <a href="/" className="wow animate__animated animate__fadeInLeft flex items-center flex-shrink-0">
-              <img
-                src="/images/logo/logo-lands.svg"
-                alt="OM Kirana Store"
-                className="h-16 w-auto"
-              />
-            </a>
+            <Logo />
 
             {/* Navigation */}
 

@@ -20,14 +20,14 @@ import AdminOrders from './pages/Admin/Orders';
 import AdminCustomers from './pages/Admin/Customers';
 import AdminSettings from './pages/Admin/Settings';
 import { Toaster } from "react-hot-toast";
-
 function App() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
 
+
   return (
     <div>
-       <Toaster position="top-right" />
+      <Toaster position="top-right" />
       {!isAdminRoute && <TopBar />}
       {!isAdminRoute && <Headers />}
       <main>

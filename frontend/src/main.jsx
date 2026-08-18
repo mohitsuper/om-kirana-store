@@ -5,18 +5,17 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { HelmetProvider } from 'react-helmet-async';
-import { WOW } from 'wowjs';
+import { SettingsProvider } from './context/SettingsContext';
 
-// initialize WOW.js for scroll animations
-if (typeof window !== 'undefined') {
-	new WOW().init();
-}
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<BrowserRouter>
-	  <HelmetProvider>
-		<App />
-	  </HelmetProvider>
+		<HelmetProvider>
+			<SettingsProvider>
+				<App />
+			</SettingsProvider>
+		</HelmetProvider>
 	</BrowserRouter>
 );
